@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Checkout Source') {
       steps {
-        git branch: 'redis', url: 'https://github.com/nizarakbarm/swarm-microservice-demo-v1.git'
+        git branch: 'Redis', url: 'https://github.com/nizarakbarm/swarm-microservice-demo-v1.git'
       }
     }
 
@@ -12,7 +12,7 @@ pipeline {
       steps {
         script {
           sh "kubectl --kubeconfig=/home/devnull/.kube/config get deployments"
-          sh "kubectl --kubeconfig=/home/devnull/.kube/config apply -f redis.yaml"
+          sh "kubectl --kubeconfig=/home/devnull/.kube/config apply -f Redis/redis.yaml"
         }
       }
     }

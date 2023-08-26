@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Checkout Source') {
       steps {
-        git branch: 'redis', url: 'https://github.com/nizarakbarm/swarm-microservice-demo-v1.git'
+        git branch: 'Redis', url: 'https://github.com/nizarakbarm/swarm-microservice-demo-v1.git'
       }
     }
 
