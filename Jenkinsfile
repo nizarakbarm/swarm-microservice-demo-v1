@@ -32,6 +32,7 @@ pipeline {
       steps {
         script {
           sh "kubectl --kubeconfig=/home/devnull/.kube/config apply -f result-app.yaml"
+          sh "kubectl get deployments result-app -o jsonpath='{.status.conditions[1].status}'"
         }
       }
     }
