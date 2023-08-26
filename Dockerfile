@@ -1,4 +1,4 @@
-FROM node:0.10.38
+FROM node:0.12.18
 
 RUN mkdir /app
 WORKDIR /app
