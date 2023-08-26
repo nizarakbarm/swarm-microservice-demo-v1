@@ -13,7 +13,7 @@ pipeline {
     stage('Build image') {
       steps{
         script {
-          dockerImage = docker.build dockerimagename resultapp/Dockerfile
+          dockerImage = docker.build -f resultapp/Dockerfile dockerimagename
         }
       }
     }
