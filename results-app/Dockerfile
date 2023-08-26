@@ -9,8 +9,8 @@ RUN mv /app/node_modules /node_modules
 
 ADD . /app
 
-ENV PORT 8080
-EXPOSE 8080
+ENV PORT 80
+EXPOSE 80
 
-USER 1001
+#USER 1001
 CMD ["node", "server.js"]
