@@ -33,7 +33,7 @@ pipeline {
       steps {
         script {
           sh "kubectl --kubeconfig=/home/devnull/.kube/config get deployments result-app"
-          sh "kubectl --kubeconfig=/home/devnull/.kube/config apply -f result-app/result-app.yaml"
+          sh "kubectl --kubeconfig=/home/devnull/.kube/config apply -f result-app.yaml"
         }
       }
     }
