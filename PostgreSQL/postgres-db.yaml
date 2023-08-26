@@ -17,7 +17,7 @@ spec:
     path: "/data/db"
 ---
 apiVersion: v1
-kind: PeersistentVolumeClaim
+kind: PersistentVolumeClaim
 metadata:
   name: db-persistent-volume-claim
 spec:
