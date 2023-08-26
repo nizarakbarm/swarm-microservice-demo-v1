@@ -10,7 +10,7 @@ EOF
 
 #activate rke2-server service
 sudo curl -sfL https://get.rke2.io | sh -
-sudo echo "52.77.228.35 node0" >> /etc/hosts
+sudo echo "IPNODE0 node0" >> /etc/hosts
 systemctl enable rke2-server.service --now
 if [[ $(sudo systemctl is-active rke2-server.service) == "active" ]]; then mkdir -p /home/ubuntu/.kube; sudo cp /etc/rancher/rke2/rke2.yaml /home/ubuntu/.kube/config; chown -R ubuntu:ubuntu /home/ubuntu/.kube; fi
 

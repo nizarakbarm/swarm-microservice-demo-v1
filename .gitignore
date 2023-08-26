@@ -3,3 +3,4 @@
 terraform.tfstate*
 user_data.tpl
 *.bak
+*.tar.gz
