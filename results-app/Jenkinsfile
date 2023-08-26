@@ -27,9 +27,8 @@ pipeline {
       steps{
             sh 'docker push $dockerimagename'
         }
-      }
     }
-    stage('Deploy result-app to kubernetes') {
+    stage('Deploy result-app') {
       steps {
         script {
           sh "kubectl --kubeconfig=/home/devnull/.kube/config get deployments result-app"
@@ -42,4 +41,5 @@ pipeline {
             sh 'docker logout'
         }
     }
+  }
 }
