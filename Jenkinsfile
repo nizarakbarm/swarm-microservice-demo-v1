@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Checkout Source') {
       steps {
-        git 'https://github.com/nizarakbarm/swarm-microservice-demo-v1.git'
+        git branch: 'postgresql', url: 'https://github.com/nizarakbarm/swarm-microservice-demo-v1.git'
       }
     }
 
