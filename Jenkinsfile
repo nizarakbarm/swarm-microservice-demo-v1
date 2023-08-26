@@ -14,7 +14,7 @@ pipeline {
     stage('Build image') {
       steps{
         script {
-          sh 'docker build . -t $dockerimagename -f results-app/Dockerfile'
+          sh 'docker build . -t $dockerimagename'
         }
       }
     }
@@ -31,7 +31,6 @@ pipeline {
     stage('Deploy result-app') {
       steps {
         script {
-          sh "kubectl --kubeconfig=/home/devnull/.kube/config get deployments result-app"
           sh "kubectl --kubeconfig=/home/devnull/.kube/config apply -f result-app.yaml"
         }
       }
