@@ -11,14 +11,14 @@ spec:
       labels:
         app: result-app
     spec:
-      # securityContext:
-      #   runAsUser: 1001
+      securityContext:
+        runAsUser: 1001
       containers:
       - name: result-app
         image: findnull45/result-app:latest
-        # securityContext:
-        #   runAsUser: 1001
-        #   allowPrivilegeEscalation: false
+        securityContext:
+          runAsUser: 1001
+          allowPrivilegeEscalation: false
         resources:
           requests:
             memory: "64Mi"
@@ -27,7 +27,7 @@ spec:
             memory: "1Gi"
             cpu: "1000m"
         ports:
-        - containerPort: 80
+        - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -37,5 +37,5 @@ spec:
   selector:
     app: result-app
   ports:
-  - port: 80
+  - port: 8080
 
