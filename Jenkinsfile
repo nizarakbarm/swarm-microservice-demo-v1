@@ -11,7 +11,8 @@ pipeline {
     stage('Deploying postgres-db') {
       steps {
         script {
-          kubernetesDeploy(configs: "PostgreSQL/postgres-db.yaml")
+          sh "kubectl --kubeconfig=/home/devnull/.kube/config get deployments"
+          sh "kubectl --kubeconfig=/home/devnull/.kube/config apply -f PostgreSQL/postgres-db.yaml"
         }
       }
     }
