@@ -4,8 +4,8 @@ RUN mkdir /app
 WORKDIR /app
 
 ADD package.json /app/package.json
-RUN n 0.10.36 && npm install && npm ls
-RUN mv /app/node_modules /node_modules
+RUN npm install && npm ls
+RUN cp /app/node_modules /node_modules
 
 ADD . /app
 
