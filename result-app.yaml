@@ -20,9 +20,12 @@ spec:
           runAsUser: 1001
           allowPrivilegeEscalation: false
         resources:
+          requests:
+            memory: "64Mi"
+            cpu: "150m"
           limits:
             memory: "1Gi"
-            cpu: "500m"
+            cpu: "1000m"
         ports:
         - containerPort: 8080
 ---
