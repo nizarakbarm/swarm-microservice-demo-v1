@@ -4754,7 +4754,7 @@ module.exports = function(arraybuffer, start, end) {
  * Licensed under the MIT license.
  */
 (function(chars){
-//  "use strict";
+  "use strict";
 
   exports.encode = function(arraybuffer) {
     var bytes = new Uint8Array(arraybuffer),
