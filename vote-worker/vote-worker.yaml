@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vote-worker
+spec:
+  selector:
+    matchLabels:
+      app: vote-worker
+  template:
+    metadata:
+      labels:
+        app: vote-worker
+    spec:
+      # securityContext:
+      #   runAsUser: 1001
+      containers:
+      - name: vote-worker
+        image: findnull45/vote-worker:latest
+        # securityContext:
+        #   runAsUser: 1001
+        #   allowPrivilegeEscalation: false
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "150m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
