@@ -1,10 +1,10 @@
-FROM node:8.9.1
+FROM node:0.10.36
 
 RUN mkdir /app
 WORKDIR /app
 
 ADD package.json /app/package.json
-RUN npm install && npm ls
+RUN n 0.10.36 && npm install && npm ls
 RUN mv /app/node_modules /node_modules
 
 ADD . /app
