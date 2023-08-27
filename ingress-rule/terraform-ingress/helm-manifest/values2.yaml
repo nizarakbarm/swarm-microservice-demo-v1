@@ -1,0 +1,13 @@
+controller:
+  config:
+    load-balance: ewma
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: nodeUsedFor
+            operator: In
+            values:
+            - ingress
+  replicaCount: 3
