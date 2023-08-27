@@ -1,4 +1,5 @@
 FROM node:0.10
+#echo node
 
 RUN mkdir /app
 WORKDIR /app
