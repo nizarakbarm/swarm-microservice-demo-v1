@@ -28,7 +28,7 @@ pipeline {
             sh 'docker push $dockerimagename'
         }
     }
-    stage('Deploying redis') {
+    stage('Deploying redis and web-vote-app') {
       steps {
         script {
           sh "kubectl --kubeconfig=/home/devnull/.kube/config get deployments"

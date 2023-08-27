@@ -1,29 +1,12 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: redis-configuration
-  labels:
-    app: redis
-data:
-  master.conf: |
-    maxmemory 512mb
-    maxmemory-policy allkeys-lru
-    maxclients 20000
-    timeout 300
-    appendonly no
-    dbfilename dump.rdb
-    dir /data
----
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployments
 metadata:
-  name: redis
+  name: redis-03
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: redis
-  serviceName: "redis"
 
   template:
     metadata:
@@ -80,7 +63,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web
+  name: web-03
 spec:
   selector:
     matchLabels:
@@ -95,6 +78,9 @@ spec:
       containers:
       - name: web
         image: findnull45/web-vote-app:latest
+        env:
+        - name: WEB_VOTE_NUMBER
+          value: "03"
         securityContext:
           runAsUser: 1001
           allowPrivilegeEscalation: false
@@ -107,27 +93,3 @@ spec:
             cpu: "1000m"
         ports:
         - containerPort: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: web
-spec:
-  selector:
-    app: web
-  ports:
-  - port: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: redis
-  labels:
-    app: redis
-spec:
-  ports:
-    - port: 6379
-      name: redis
-  clusterIP: None
-  selector:
-    app: redis
