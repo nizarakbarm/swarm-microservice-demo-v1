@@ -6,8 +6,8 @@ FROM openjdk:7u121-jdk
 WORKDIR /code
 
 ADD pom.xml /code/pom.xml
-RUN ["mvn", "dependency:resolve"]
-RUN ["mvn", "verify"]
+RUN ["mvnw", "dependency:resolve"]
+RUN ["mvnw", "verify"]
 
 # Adding source, compile and package into a fat jar
 ADD src /code/src
