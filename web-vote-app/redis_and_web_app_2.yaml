@@ -13,15 +13,6 @@ spec:
       labels:
         app: redis
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: kubernetes.io/hostname
-                operator: In
-                values:
-                - ip-172-26-6-63
       initContainers:
       - name: init-redis
         image: redis:latest
@@ -68,13 +59,7 @@ spec:
         emptyDir:
           medium: ""
           sizeLimit: 1Gi
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: web-02
-spec:
-  affinity:
+      affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
@@ -83,6 +68,12 @@ spec:
                 operator: In
                 values:
                 - ip-172-26-6-63
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-02
+spec:
   selector:
     matchLabels:
       app: web
@@ -111,3 +102,12 @@ spec:
             cpu: "1000m"
         ports:
         - containerPort: 8080
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - ip-172-26-6-63
