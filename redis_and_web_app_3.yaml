@@ -112,3 +112,17 @@ spec:
                 operator: In
                 values:
                 - ip-172-26-7-114
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-03
+  labels:
+    app: redis
+spec:
+  ports:
+    - port: 6379
+      name: redis-03
+  clusterIP: None
+  selector:
+    app: redis
