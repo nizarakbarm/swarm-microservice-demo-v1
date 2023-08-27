@@ -32,14 +32,18 @@ pipeline {
       steps {
         script {
           sh "kubectl --kubeconfig=/home/devnull/.kube/config get deployments"
-          sh "kubectl --kubeconfig=/home/devnull/.kube/config apply -f redis_and_web_app.yaml"
+          sh "kubectl --kubeconfig=/home/devnull/.kube/config apply -f redis-configmap.yaml"
+          sh "kubectl --kubeconfig=/home/devnull/.kube/config apply -f redis_and_web_app_1.yaml"
+          sh "kubectl --kubeconfig=/home/devnull/.kube/config apply -f redis_and_web_app_2.yaml"
+          sh "kubectl --kubeconfig=/home/devnull/.kube/config apply -f redis_and_web_app_3.yaml"
+          sh "kubectl --kubeconfig=/home/devnull/.kube/config apply -f service.yaml"
         }
       }
     }
   }
   post {
-  always {
-          sh 'docker logout'
-      }
+    always {
+            sh 'docker logout'
+    }
   }
 }
