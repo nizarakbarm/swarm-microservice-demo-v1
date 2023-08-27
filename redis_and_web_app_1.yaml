@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-01
+  name: redis01
 spec:
   replicas: 1
   selector:
@@ -72,7 +72,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-01
+  name: web01
 spec:
   replicas: 1
   selector:
@@ -116,11 +116,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-01
+  name: redis01
 spec:
   ports:
     - port: 6379
-      name: redis-01
+      name: redis01
   clusterIP: None
   selector:
     app: redis
