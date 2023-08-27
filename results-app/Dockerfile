@@ -5,8 +5,7 @@ RUN mkdir /app
 WORKDIR /app
 
 ADD package.json /app/package.json
-RUN rm -f /app/node_modules && rm -f /node_modules && npm install --force && npm ls
-RUN mv /app/node_modules /node_modules
+RUN rm -f /app/node_modules && rm -f /node_modules && npm install --force && npm ls && mv /app/node_modules /node_modules
 
 ADD . /app
 
