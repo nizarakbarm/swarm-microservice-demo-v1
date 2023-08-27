@@ -46,6 +46,13 @@ spec:
       containers:
       - name: redis
         image: redis:latest
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "150m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
         ports:
         - containerPort: 6379
           name: redis
@@ -69,6 +76,47 @@ spec:
         emptyDir:
           medium: ""
           sizeLimit: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      securityContext:
+        runAsUser: 1001
+      containers:
+      - name: web
+        image: findnull45/web-vote-app:latest
+        securityContext:
+          runAsUser: 1001
+          allowPrivilegeEscalation: false
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "150m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+spec:
+  selector:
+    app: web
+  ports:
+  - port: 8080
 ---
 apiVersion: v1
 kind: Service
