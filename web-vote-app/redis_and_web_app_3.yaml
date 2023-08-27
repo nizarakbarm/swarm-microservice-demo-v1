@@ -1,0 +1,126 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis03
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      initContainers:
+      - name: init-redis
+        image: redis:latest
+        command:
+          - bash
+          - "-c"
+          - |
+              cp /mnt/master.conf /etc/redis-config.conf
+        volumeMounts:
+          - name: redis-claim
+            mountPath: /etc
+          - name: config-map
+            mountPath: /mnt/
+      containers:
+      - name: redis
+        image: redis:latest
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "150m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+        ports:
+        - containerPort: 6379
+          name: redis
+        command:
+        - redis-server
+        - "/etc/redis-config.conf"
+        volumeMounts:
+        - name: redis-data
+          mountPath: /data
+        - name: redis-claim
+          mountPath: /etc
+      volumes:
+      - name: config-map
+        configMap:
+          name: redis-configuration
+      - name: redis-data
+        emptyDir:
+          medium: ""
+          sizeLimit: 1Gi
+      - name: redis-claim
+        emptyDir:
+          medium: ""
+          sizeLimit: 1Gi
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - ip-172-26-7-114
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web03
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      securityContext:
+        runAsUser: 1001
+      containers:
+      - name: web
+        image: findnull45/web-vote-app:latest
+        env:
+        - name: WEB_VOTE_NUMBER
+          value: "03"
+        securityContext:
+          runAsUser: 1001
+          allowPrivilegeEscalation: false
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "150m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+        ports:
+        - containerPort: 8080
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - ip-172-26-7-114
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis03
+spec:
+  ports:
+    - port: 6379
+      name: redis03
+  clusterIP: None
+  selector:
+    app: redis
