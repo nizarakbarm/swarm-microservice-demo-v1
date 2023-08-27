@@ -1,7 +1,7 @@
 #FROM java:7
 FROM openjdk:7u121-jdk
 
-RUN apt-get update -qq && apt-get install -y maven && apt-get clean
+#RUN apt-get update -qq && apt-get install -y maven && apt-get clean
 
 WORKDIR /code
 
