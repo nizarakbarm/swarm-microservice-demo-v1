@@ -74,6 +74,7 @@ kind: Deployment
 metadata:
   name: web-03
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: web
